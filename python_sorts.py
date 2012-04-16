@@ -103,7 +103,7 @@ class quick_sorter(sorter):
 		best case runtime == O(nlogn)
 		worst case runtime == O(n2)
 		average case runtime == O(nlogn)
-		worst case space complexity == O(n)
+		worst case space complexity == O(n) auxiliary
 
 		Picks pivot points, and pushes items around the
 		 pivots until the left is lesser and right is
@@ -128,6 +128,62 @@ class quick_sorter(sorter):
 				greater.append(item)
 
 		return(self.__quicksort__(less) + [pivot] + self.__quicksort__(greater))
+
+
+class merge_sorter(sorter):
+
+	def sort_me(self):
+		""" sorts self.inputs
+
+		Merge sort
+		best case runtime == O(nlogn)
+		worst case runtime == O(nlogn)
+		average case runtime == O(nlogn)
+		worst case space complexity == O(n) auxiliary
+		"""
+
+		self.inputs = self.__mergesort__(self.inputs)
+
+	def __mergesort__(self, inputs):
+		""" mergesort recursive function """
+		# if list size is 1, it is sorted by definition, so return it
+		if len(inputs) <= 1:
+			return inputs
+
+		# else list size is > 1, split the list into two sublists
+		left, right = [], []
+		middle = len(inputs)/2
+
+		for i, item in enumerate(inputs):
+			if i < middle:
+				left.append(item)
+			else:
+				right.append(item)
+
+		# recursively call mergesort to further split each sublist
+		#  until sublist size is 1
+		left = self.__mergesort__(left)
+		right = self.__mergesort__(right)
+
+		# merge the sublists returned from prior call to mergesort
+		#  and return the result merged sublist
+		return self.__merge__(left, right)
+
+	def __merge__(self, left, right):
+		""" conducts merging """
+
+		result = []
+		while len(left) > 0 or len(right) > 0:
+			if len(left) > 0 and len(right) > 0:
+				if left[0] <= right[0]:
+					result.append(left.pop(0))
+				else:
+					result.append(right.pop(0))
+			elif len(left) > 0:
+				result.append(left.pop(0))
+			elif len(right) > 0:
+				result.append(right.pop(0))
+		return result
 
 
 def main():
