@@ -47,7 +47,7 @@ class insertion_sorter(sorter):
 		 best case runtime == O(n)
 		 worst case runtime == O(n2)
 		 average case runtime == O(n2)
-		 worst case space complexity == O(n)
+		 worst case space complexity == O(n), O(1) auxiliary
 		"""
 
 		for i in range(len(self.inputs)):
@@ -186,6 +186,18 @@ class merge_sorter(sorter):
 		return result
 
 
+class heap_sorter(sorter):
+
+	def sort_me(self):
+		""" sorts self.inputs
+
+		Heap sort
+		best case runtime == O(nlogn)
+		worst case runtime == O(nlogn)
+		average case runtime == O(nlogn)
+		worst case space complexity == O(n), O(1) auxiliary
+		"""
+
 def main():
 	insertion_sort_me([3,2,5,2])
 
@@ -196,6 +208,49 @@ if __name__ == "__main__":
 	setup_ops()
 	print options
 	main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
