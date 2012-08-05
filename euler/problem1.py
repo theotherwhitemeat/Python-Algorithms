@@ -1,28 +1,37 @@
 #!/usr/bin/env python2.6
 
+import os
+import sys
 
-# create number list
-num_list = [3, 5]
-sums = {}
+def get_lcm(num_list):
+    """ 'calculates' the lcm for input list """
 
-# set upper and lower bounds
-upper = 1000 
-lower = 0
+    # todo - make this a library call, and optimize
+    #  1) get_primes()
+    #  2) uniquify primes
+    #  3) multiple for lcm
 
-LCM = 15
+    def lcm_ready(numer, nums):
+        """ determines if numer is divisible """
 
-for num in num_list:
-    
+        for num in nums:
+            if numer % num != 0:
+                return False
+        return True
+
+    lcm = 1
+
+    while not lcm_ready(lcm, num_list):
+        lcm += 1
+
+    return lcm
 
 def get_sum_under_limit(num, limit):
 
     multiple = upper - 1
 
     # determine if number is equally divided
-    if (multiple % num) == 0:
-        even = True
-    else:
-        even = False
+    if (multiple % num) != 0:
         # iterate until number is equally divided
         print "Iterating multiple down for %d: %d" % (num, multiple)
         while (multiple % num) != 0:
@@ -34,20 +43,41 @@ def get_sum_under_limit(num, limit):
     aggr_sum = num + multiple
     print "Upper num for %d: %d" % (num, aggr_sum)
 
-    # if evenly divided, the algorithm is aggr_sum * .5 divisions
-    if even:
-        print "%d goes into %d evenly" % (num, upper)
-        aggr_sum = (aggr_sum * (multiple / num)) / 2
-    # if not evenly divided, the algorithm adds .5 aggr_sum's
-    else:
-        print "%d goes into %d oddly" % (num, upper)
-        aggr_sum = (aggr_sum * (multiple / num)) / 2 #- (aggr_sum / 2)
+    aggr_sum = (aggr_sum * (multiple / num)) / 2
 
-    sums[num] = aggr_sum
+    return aggr_sum
+
+if __name__ == "__main__":
+
+    # create number list
+    num_list = [3, 5]
+    sums = {}
+
+    # set upper bound
+    upper = 1000
+
+    lcm = get_lcm(num_list)
+    print "lcm: %d" % (lcm)
+
+    # add up sums
+    for num in num_list:
+        sums[num] = get_sum_under_limit(num, upper)
+    total_sum = sum(x for x in sums.values())
+
+    # subtract lcm sum
+    nuke_me = get_sum_under_limit(lcm, upper)
+
+    total_sum -= nuke_me
+
+    print total_sum
+    print sums
 
 
-total_sum = sum(x for x in sums.values())
 
-print total_sum
-print sums
+
+
+
+
+
+
 
