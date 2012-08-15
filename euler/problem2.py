@@ -10,28 +10,11 @@ By considering the terms in the Fibonacci sequence whose
 values do not exceed four million, find the sum of the 
 even-valued terms. """
 
-
-def get_fibos(count=None, fibo_max=None):
-	""" gets the fibos """
-
-	fibos = [1, 2]
-
-	if (count is not None):
-		while (len(fibos) < count):
-			i = len(fibos) - 1
-			fibos.append(fibos[i] + fibos[i - 1])
-	elif (fibo_max is not None):
-		while (fibos[len(fibos)-1] < fibo_max):
-			i = len (fibos) - 1
-			fibos.append(fibos[i] + fibos[i - 1])
-		fibos = fibos[:-1]
-
-	return fibos
-
+import math_lib.math as mathy
 
 if __name__ == "__main__":
 	derp_max = 4000000
-	nums = get_fibos(fibo_max=derp_max)
+	nums = mathy.get_fibos(fibo_max=derp_max)
 	num_sum = 0
 
 	for derp in nums:
